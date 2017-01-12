@@ -1,5 +1,5 @@
 // by dribehance <dribehance.kksdapp.com>
-angular.module("Server").factory("apiServices", function($http) {
+angular.module("Server").factory("apiServices", function($http, localStorageService) {
 	return {
 		_get: function(request) {
 			return function(input) {
@@ -9,6 +9,7 @@ angular.module("Server").factory("apiServices", function($http) {
 				return $http({
 					// by dribehance <dribehance.kksdapp.com>
 					url: request.url,
+					cache: request.cache || true,
 					method: "GET",
 					params: angular.extend({}, request, input)
 				}).then(function(data) {
@@ -25,6 +26,7 @@ angular.module("Server").factory("apiServices", function($http) {
 					// by dribehance <dribehance.kksdapp.com>
 					url: request.url,
 					method: "POST",
+					cache: request.cache || true,
 					headers: {
 						'Content-Type': 'application/x-www-form-urlencoded'
 					},
