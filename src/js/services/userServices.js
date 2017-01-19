@@ -37,6 +37,10 @@ angular.module("Server").factory("userServices", function($rootScope, $http, api
 			url: config.url + "api_url",
 			token: localStorageService.get("token")
 		})),
+		upload: apiServices._post_formdata(angular.extend({}, config.common_params, {
+			url: config.url + "api_url",
+			token: localStorageService.get("token")
+		})),
 		// favourite 收藏
 		like: apiServices._get(angular.extend({}, config.common_params, {
 			url: config.url + "api_url",

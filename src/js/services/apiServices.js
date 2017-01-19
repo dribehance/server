@@ -41,6 +41,29 @@ angular.module("Server").factory("apiServices", function($http, localStorageServ
 					return data.data;
 				});
 			}
+		},
+		_post_formdata: function(request) {
+			return function(formdata) {
+				if (request.token !== undefined) {
+					request.token = localStorageService.get("token")
+				}
+				for (key in request) {
+					formdata.append(key, request[key]);
+				}
+				return $http({
+					// by dribehance <dribehance.kksdapp.com>
+					url: request.url,
+					method: "POST",
+					cache: request.cache || true,
+					headers: {
+						'Content-Type': undefined
+					},
+					transformRequest: angular.identity,
+					data: formdata
+				}).then(function(data) {
+					return data.data;
+				});
+			}
 		}
 	}
 });

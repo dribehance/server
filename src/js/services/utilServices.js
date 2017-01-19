@@ -24,6 +24,7 @@ angular.module("Server").factory("utilServices", function($q) {
 
 	var resizeFile = function(file) {
 		var deferred = $q.defer();
+		var file_type = file.type;
 		var img = document.createElement("img");
 		try {
 			var reader = new FileReader();
@@ -34,8 +35,8 @@ angular.module("Server").factory("utilServices", function($q) {
 				var canvas = document.createElement("canvas");
 				var ctx = canvas.getContext("2d");
 				ctx.drawImage(img, 0, 0);
-				var MAX_WIDTH = 500;
-				var MAX_HEIGHT = 500;
+				var MAX_WIDTH = 1000;
+				var MAX_HEIGHT = 1000;
 				var width = img.width;
 				var height = img.height;
 				if (width > height) {
@@ -55,7 +56,7 @@ angular.module("Server").factory("utilServices", function($q) {
 				ctx.drawImage(img, 0, 0, width, height);
 
 				//change the dataUrl to blob data for uploading to server
-				var dataURL = canvas.toDataURL('image/jpeg');
+				var dataURL = canvas.toDataURL(file_type);
 				var blob = dataURItoBlob(dataURL);
 
 				deferred.resolve(blob);
